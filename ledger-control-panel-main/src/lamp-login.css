@@ -1,0 +1,861 @@
+/* ==========================================================================
+   CSS CUSTOM PROPERTIES (THEMING, PHYSICS & LIGHT CONE GEOMETRY)
+   ========================================================================== */
+:root {
+  /* Lamp Light Temperature (Warm Incandescent / Amber 2400K) */
+  --lamp-glow-core: rgba(255, 243, 191, 0.98);
+  --lamp-glow-amber: rgba(255, 184, 77, 0.9);
+  --lamp-glow-outer: rgba(217, 119, 6, 0.4);
+  --lamp-beam-bright: rgba(255, 235, 130, 0.55);
+  --lamp-beam-mid: rgba(254, 240, 138, 0.22);
+  --lamp-ambient-on: #14110b;
+  --lamp-ambient-off: #08080a;
+
+  /* Brass & Lamp Material Tokens */
+  --brass-highlight: #fef08a;
+  --brass-mid: #ca8a04;
+  --brass-dark: #713f12;
+  --shade-outer: #1e1e24;
+  --shade-inner: #3a220a;
+
+  /* Form & Card Tokens */
+  --card-bg: rgba(20, 20, 24, 0.82);
+  --card-border-off: rgba(255, 255, 255, 0.05);
+  --card-border-on: rgba(234, 179, 8, 0.35);
+  --input-bg: rgba(14, 14, 18, 0.75);
+  --input-border: rgba(255, 255, 255, 0.08);
+
+  /* Animation Timings */
+  --light-transition-time: 0.65s;
+  --swing-duration: 1.4s;
+  --swing-angle: 5deg;
+}
+
+/* ==========================================================================
+   FULLSCREEN SCENE CONTAINER
+   ========================================================================== */
+.lamp-scene {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--lamp-ambient-off);
+  transition: background-color var(--light-transition-time) cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #f4f4f5;
+  user-select: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lamp-scene--on {
+  background-color: var(--lamp-ambient-on);
+}
+
+/* Ambient Radial Vignette */
+.lamp-ambient-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 50%, transparent 30%, rgba(0, 0, 0, 0.88) 95%);
+  z-index: 1;
+}
+
+/* ==========================================================================
+   FULLSCREEN RESPONSIVE LAYOUT (NO CONSTRAINED BOX)
+   ========================================================================== */
+.lamp-layout-container {
+  position: relative;
+  z-index: 5;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 960px) {
+  .lamp-layout-container {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10vw;
+  }
+}
+
+@media (min-width: 1440px) {
+  .lamp-layout-container {
+    padding: 0 14vw;
+  }
+}
+
+/* ==========================================================================
+   3D LAMP FIXTURE & ANCHORED LIGHT CONE
+   ========================================================================== */
+.lamp-fixture {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  margin-bottom: 2.5rem;
+  width: 320px;
+  height: 540px;
+}
+
+@media (min-width: 960px) {
+  .lamp-fixture {
+    margin-bottom: 0;
+  }
+}
+
+/* Harmonic Pendulum Swing */
+.lamp-fixture--swinging .lamp-shade-container {
+  animation: lampSwing var(--swing-duration) cubic-bezier(0.36, 0, 0.66, -0.56) forwards;
+}
+
+@keyframes lampSwing {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  20% {
+    transform: rotate(var(--swing-angle));
+  }
+
+  40% {
+    transform: rotate(calc(var(--swing-angle) * -0.7));
+  }
+
+  60% {
+    transform: rotate(calc(var(--swing-angle) * 0.4));
+  }
+
+  80% {
+    transform: rotate(calc(var(--swing-angle) * -0.15));
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Ceiling Cord (Optional Top Anchor) */
+.lamp-cord {
+  width: 2px;
+  height: 40px;
+  background: linear-gradient(to bottom, #18181b, #3f3f46);
+}
+
+/* Shade & Head Assembly */
+.lamp-shade-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  z-index: 12;
+}
+
+.lamp-brass-cap {
+  width: 38px;
+  height: 14px;
+  background: linear-gradient(135deg, var(--brass-highlight), var(--brass-mid), var(--brass-dark));
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.lamp-shade {
+  width: 170px;
+  height: 76px;
+  background: radial-gradient(ellipse at 50% 20%, #2e2e38 0%, var(--shade-outer) 100%);
+  border-radius: 85px 85px 6px 6px;
+  position: relative;
+  border-top: 1px solid rgba(254, 240, 138, 0.3);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+}
+
+.lamp-shade-rim {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(to right, var(--brass-dark), var(--brass-highlight), var(--brass-dark));
+  border-radius: 0 0 6px 6px;
+}
+
+/* Socket & Edison Bulb */
+.lamp-bulb-socket {
+  width: 22px;
+  height: 9px;
+  background: var(--brass-dark);
+}
+
+.lamp-bulb {
+  width: 36px;
+  height: 42px;
+  border-radius: 50% 50% 45% 45%;
+  background: radial-gradient(circle at 50% 35%, #ffffff 0%, #fef08a 40%, rgba(202, 138, 4, 0.3) 100%);
+  margin-top: -4px;
+  position: relative;
+  opacity: 0.25;
+  transition: opacity 0.3s, box-shadow var(--light-transition-time);
+  z-index: 15;
+}
+
+.lamp-filament {
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 16px;
+  border: 1px solid #78350f;
+  border-radius: 3px;
+  opacity: 0.6;
+}
+
+/* Bulb Glow when Lamp is ON */
+.lamp-scene--on .lamp-bulb {
+  opacity: 1;
+  background: radial-gradient(circle at 50% 30%, #ffffff 0%, #fef08a 45%, #f59e0b 100%);
+  box-shadow:
+    0 0 18px 6px var(--lamp-glow-core),
+    0 0 45px 16px var(--lamp-glow-amber),
+    0 0 90px 35px var(--lamp-glow-outer);
+}
+
+.lamp-scene--on .lamp-filament {
+  border-color: #ffffff;
+  box-shadow: 0 0 8px #ffffff;
+  opacity: 1;
+}
+
+/* Stand Pole & Base */
+.lamp-stand-pole {
+  width: 5px;
+  height: 320px;
+  background: linear-gradient(to right, #18181b, #3f3f46, #18181b);
+  box-shadow: 1px 0 4px rgba(0, 0, 0, 0.9);
+}
+
+.lamp-stand-base {
+  width: 110px;
+  height: 10px;
+  border-radius: 6px 6px 3px 3px;
+  background: linear-gradient(to top, #18181b, var(--brass-dark), #27272a);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.95);
+}
+
+/* ==========================================================================
+   ANCHORED LIGHT CONE (ORIGINATES PRECISELY AT THE LAMP SHADE)
+   ========================================================================== */
+.lamp-light-cone {
+  position: absolute;
+  top: 70px;
+  /* Aligned exactly under the lamp shade rim */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 720px;
+  height: 480px;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  transform-origin: top center;
+  clip-path: polygon(38% 0%, 62% 0%, 100% 100%, 0% 100%);
+  background: radial-gradient(ellipse at 50% 0%,
+      var(--lamp-beam-bright) 0%,
+      var(--lamp-beam-mid) 30%,
+      rgba(251, 191, 36, 0.08) 60%,
+      transparent 80%);
+  transition: opacity var(--light-transition-time) cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lamp-scene--on .lamp-light-cone {
+  opacity: 1;
+}
+
+/* Floor Ambient Glow */
+.lamp-floor-glow {
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 520px;
+  height: 160px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 4;
+  background: radial-gradient(circle, var(--lamp-glow-outer) 0%, transparent 70%);
+  opacity: 0;
+  filter: blur(35px);
+  transition: opacity var(--light-transition-time) ease-out;
+}
+
+.lamp-scene--on .lamp-floor-glow {
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   INTERACTIVE PULL CHAIN
+   ========================================================================== */
+.lamp-pull-chain {
+  position: absolute;
+  right: 24px;
+  top: 60px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  z-index: 18;
+}
+
+.chain-link-line {
+  width: 2px;
+  height: 64px;
+  background: repeating-linear-gradient(to bottom,
+      var(--brass-highlight) 0px,
+      var(--brass-highlight) 2px,
+      transparent 2px,
+      transparent 4px);
+  transition: height 0.15s ease;
+}
+
+.chain-bead {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brass-highlight);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.chain-tassel {
+  width: 9px;
+  height: 16px;
+  background: linear-gradient(to bottom, var(--brass-highlight), var(--brass-mid));
+  border-radius: 2px 2px 6px 6px;
+  margin-top: 1px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.lamp-pull-chain:hover .chain-tassel {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px var(--brass-highlight);
+}
+
+.lamp-pull-chain--pulled .chain-link-line {
+  height: 80px;
+}
+
+.lamp-pull-chain--pulled {
+  animation: chainJiggle 0.8s ease-out;
+}
+
+@keyframes chainJiggle {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(16px) rotate(7deg);
+  }
+
+  50% {
+    transform: translateY(0px) rotate(-5deg);
+  }
+
+  75% {
+    transform: translateY(4px) rotate(2deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+/* ==========================================================================
+   ANIMATED FLYING ELEMENTS (GLOWING FIREFLIES & 3D LIGHT MOTES)
+   ========================================================================== */
+.lamp-particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.lamp-scene--on .lamp-particles {
+  opacity: 1;
+}
+
+.fly-element {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, #fef08a 40%, #eab308 100%);
+  box-shadow:
+    0 0 8px 2px rgba(254, 240, 138, 0.9),
+    0 0 16px 6px rgba(234, 179, 8, 0.5);
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+/* Dynamic 3D flight trajectories */
+.f1 {
+  width: 5px;
+  height: 5px;
+  top: 35%;
+  left: 28%;
+  animation: flySine1 8s infinite;
+}
+
+.f2 {
+  width: 4px;
+  height: 4px;
+  top: 48%;
+  left: 36%;
+  animation: flySine2 10s infinite 1.5s;
+}
+
+.f3 {
+  width: 6px;
+  height: 6px;
+  top: 62%;
+  left: 32%;
+  animation: flySine3 7.5s infinite 0.8s;
+}
+
+.f4 {
+  width: 4px;
+  height: 4px;
+  top: 30%;
+  left: 65%;
+  animation: flySine1 9s infinite 2.2s;
+}
+
+.f5 {
+  width: 5px;
+  height: 5px;
+  top: 55%;
+  left: 72%;
+  animation: flySine2 11s infinite 3s;
+}
+
+.f6 {
+  width: 6px;
+  height: 6px;
+  top: 75%;
+  left: 58%;
+  animation: flySine3 8.5s infinite 1s;
+}
+
+.f7 {
+  width: 3px;
+  height: 3px;
+  top: 42%;
+  left: 50%;
+  animation: flySine1 6.5s infinite 0.4s;
+}
+
+@keyframes flySine1 {
+  0% {
+    transform: translate(0, 0) scale(0.8);
+    opacity: 0.3;
+  }
+
+  25% {
+    transform: translate(40px, -35px) scale(1.2);
+    opacity: 0.95;
+  }
+
+  50% {
+    transform: translate(75px, 15px) scale(0.9);
+    opacity: 0.6;
+  }
+
+  75% {
+    transform: translate(30px, 45px) scale(1.1);
+    opacity: 0.85;
+  }
+
+  100% {
+    transform: translate(0, 0) scale(0.8);
+    opacity: 0.3;
+  }
+}
+
+@keyframes flySine2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.4;
+  }
+
+  33% {
+    transform: translate(-45px, 30px) scale(0.8);
+    opacity: 0.8;
+  }
+
+  66% {
+    transform: translate(35px, -40px) scale(1.3);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.4;
+  }
+}
+
+@keyframes flySine3 {
+  0% {
+    transform: translate(0, 0) scale(0.9);
+    opacity: 0.5;
+  }
+
+  30% {
+    transform: translate(60px, -20px) scale(1.1);
+    opacity: 0.9;
+  }
+
+  70% {
+    transform: translate(-30px, -50px) scale(0.7);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: translate(0, 0) scale(0.9);
+    opacity: 0.5;
+  }
+}
+
+/* ==========================================================================
+   AUTHENTICATION CARD
+   ========================================================================== */
+.login-card-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 440px;
+  perspective: 1000px;
+}
+
+.login-card {
+  position: relative;
+  width: 100%;
+  border-radius: 18px;
+  padding: 2.5rem 2.25rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border-off);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.9);
+  transition:
+    opacity var(--light-transition-time) cubic-bezier(0.16, 1, 0.3, 1),
+    transform var(--light-transition-time) cubic-bezier(0.16, 1, 0.3, 1),
+    filter var(--light-transition-time) cubic-bezier(0.16, 1, 0.3, 1),
+    border-color var(--light-transition-time) ease,
+    box-shadow var(--light-transition-time) ease;
+}
+
+.login-card--shrouded {
+  opacity: 0.08;
+  filter: blur(8px) brightness(0.2);
+  pointer-events: none;
+  transform: translateY(12px) scale(0.98);
+}
+
+.login-card--illuminated {
+  opacity: 1;
+  filter: blur(0px) brightness(1);
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  border-color: var(--card-border-on);
+  box-shadow:
+    0 0 35px -5px rgba(234, 179, 8, 0.22),
+    0 25px 50px -12px rgba(0, 0, 0, 0.95);
+}
+
+/* Unlit prompt overlay when lamp is OFF */
+.lamp-unlit-prompt {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+  border-radius: 18px;
+  border: 1px dashed rgba(82, 82, 91, 0.35);
+  background: rgba(12, 12, 15, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.lamp-unlit-prompt:hover {
+  border-color: rgba(234, 179, 8, 0.5);
+  background: rgba(20, 20, 24, 0.8);
+}
+
+.unlit-lock-icon {
+  width: 2.25rem;
+  height: 2.25rem;
+  color: #71717a;
+  margin-bottom: 0.75rem;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.lamp-unlit-prompt:hover .unlit-lock-icon {
+  color: #facc15;
+  transform: scale(1.1);
+}
+
+.unlit-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #d4d4d8;
+  margin: 0 0 0.375rem 0;
+}
+
+.unlit-hint {
+  font-size: 0.8125rem;
+  color: #ca8a04;
+  font-family: monospace;
+  letter-spacing: 0.02em;
+}
+
+/* Header */
+.login-header {
+  margin-bottom: 1.75rem;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0;
+  color: #ffffff;
+}
+
+.login-subtitle {
+  font-size: 0.875rem;
+  color: #a1a1aa;
+  margin-top: 0.5rem;
+}
+
+/* Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 0.875rem;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: #71717a;
+  pointer-events: none;
+}
+
+.form-input {
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 10px;
+  padding: 0.75rem 1rem 0.75rem 2.625rem;
+  font-size: 0.875rem;
+  color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+
+.password-input {
+  padding-right: 2.75rem;
+}
+
+.form-input:focus {
+  border-color: #facc15;
+  background: rgba(18, 18, 22, 0.95);
+  box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.15);
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  color: #71717a;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.password-toggle-btn:hover {
+  color: #facc15;
+}
+
+.toggle-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #facc15 0%, #eab308 100%);
+  border: none;
+  border-radius: 10px;
+  padding: 0.8125rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #18181b;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 16px rgba(234, 179, 8, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  margin-top: 0.25rem;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(234, 179, 8, 0.5);
+  filter: brightness(1.05);
+}
+
+.submit-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-spinner {
+  width: 1rem;
+  height: 1rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* OAuth Divider */
+.oauth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.25rem 0 1rem 0;
+}
+
+.oauth-divider::before,
+.oauth-divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.oauth-divider-text {
+  padding: 0 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #71717a;
+}
+
+/* OAuth Buttons Grid */
+.oauth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.oauth-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.6875rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #e4e4e7;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.oauth-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+.oauth-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.oauth-icon {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+/* Error message */
+.form-error {
+  border-radius: 6px;
+  border: 1px solid rgba(239, 68, 68, 0.6);
+  background-color: rgba(239, 68, 68, 0.12);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  color: #f87171;
+  text-align: center;
+}

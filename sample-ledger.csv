@@ -1,0 +1,16 @@
+date,description,amount,currency,reference,transaction_type
+2026-08-01,Stripe Payout Settlement #9901,15450.00,USD,STRIPE-SETTLE-9901,credit
+2026-08-03,Razorpay Settlement Payout,28900.50,USD,RZP-SETTLE-4412,credit
+2026-08-05,Customer Inflow Wire Acme Corp,45000.00,USD,WIRE-ACME-8821,credit
+2026-08-08,Slack Enterprise Grid Annual,-12500.00,USD,INV-SLACK-2026,debit
+2026-08-10,Monthly Payroll Direct Deposit,-38500.00,USD,PAYROLL-2026-08,debit
+2026-08-12,Amazon Web Services Cloud Infrastructure,-2450.75,USD,AWS-88120,debit
+2026-08-15,Google Cloud Platform US,-850.00,USD,GCP-INV-4419,debit
+2026-08-16,GitHub Inc Software Seats,-420.00,USD,GH-SUB-9982,debit
+2026-08-20,Stripe Payout Settlement Net of Fees,18125.00,USD,STRIPE-9902-NET,credit
+2026-08-23,Datadog SaaS Platform,-3100.00,USD,DD-5512,debit
+2026-08-23,Datadog APM Log Ingestion Addon,-3100.00,USD,DD-5513,debit
+2026-08-26,WeWork Global Workspace Rent,-9500.00,USD,RENT-AUG-26,debit
+2026-08-27,Internal Treasury Operating Book Transfer,-5000.00,USD,INT-XFER-991,debit
+2026-08-29,Unposted Credit Adjustment Entry,1200.00,USD,ADJ-MISC-001,credit
+2026-08-30,Strategy & Engineering Consulting,-6800.00,USD,INV-CONSULT-401,debit

@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time-Series Forecast & Historical Confidence Envelope</title>
+  <!-- Modern Typography: Inter & IBM Plex Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg-base: #0D0D0F;
+      --surface-card: #141417;
+      --surface-elevated: #19191D;
+      --surface-tooltip: #1E1E23;
+      --border-subtle: #303038;
+      --border-focus: #A855F7;
+      --text-primary: #F5F5F7;
+      --text-secondary: #A7A7B0;
+      --text-muted: #707079;
+      
+      /* Historical / Pre-Day Color Palette (Cyan / Emerald / Slate) */
+      --color-hist-actual: #10B981;
+      --color-hist-projected: #06B6D4;
+      --color-hist-band: rgba(6, 182, 212, 0.15);
+      --color-hist-border: rgba(6, 182, 212, 0.4);
+
+      /* Future Projection Color Palette (Violet / Purple) */
+      --color-future-projected: #A855F7;
+      --color-future-band: rgba(168, 85, 247, 0.18);
+      --color-future-border: rgba(168, 85, 247, 0.5);
+
+      /* Status Indicators */
+      --color-success: #22C55E;
+      --color-warning: #F59E0B;
+      --color-danger: #EF4444;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+    }
+
+    /* Header & Controls */
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .title-group h1 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    .title-group p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: 'IBM Plex Mono', monospace;
+      margin-top: 0.25rem;
+    }
+
+    .horizon-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--surface-elevated);
+      padding: 0.25rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .horizon-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 150ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .horizon-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .horizon-btn.active {
+      background: var(--color-future-projected);
+      color: #FFFFFF;
+      box-shadow: 0 2px 8px rgba(168, 85, 247, 0.35);
+    }
+
+    /* KPI Variance Summary Strip */
+    .kpi-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .kpi-card {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+    }
+
+    .kpi-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .kpi-value {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-top: 0.25rem;
+    }
+
+    .kpi-hint {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* Chart Canvas Container */
+    .chart-wrapper {
+      position: relative;
+      height: 420px;
+      width: 100%;
+    }
+
+    /* Legend */
+    .legend-container {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .legend-badge {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+    }
+
+    .legend-badge.actual {
+      background: var(--color-hist-actual);
+    }
+
+    .legend-badge.hist-proj {
+      background: var(--color-hist-projected);
+    }
+
+    .legend-badge.hist-ci {
+      background: var(--color-hist-band);
+      border: 1px dashed var(--color-hist-border);
+    }
+
+    .legend-badge.future-proj {
+      background: var(--color-future-projected);
+    }
+
+    .legend-badge.future-ci {
+      background: var(--color-future-band);
+      border: 1px solid var(--color-future-border);
+    }
+
+    /* Custom Tooltip */
+    #custom-tooltip {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      background: var(--surface-tooltip);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      min-width: 240px;
+      transition: opacity 120ms ease, transform 120ms ease;
+      z-index: 100;
+    }
+
+    .tt-date {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .tt-badge {
+      font-size: 0.65rem;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .tt-badge.hist {
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--color-hist-projected);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+    }
+
+    .tt-badge.future {
+      background: rgba(168, 85, 247, 0.15);
+      color: var(--color-future-projected);
+      border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+
+    .tt-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0.3rem 0;
+    }
+
+    .tt-label {
+      color: var(--text-muted);
+    }
+
+    .tt-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .tt-variance {
+      margin-top: 0.5rem;
+      padding-top: 0.4rem;
+      border-top: 1px dashed var(--border-subtle);
+    }
+
+    .tt-variance-badge {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-top: 0.25rem;
+    }
+
+    .tt-variance-badge.in-bounds {
+      background: rgba(34, 197, 94, 0.12);
+      color: var(--color-success);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+    }
+
+    .tt-variance-badge.out-bounds {
+      background: rgba(239, 68, 68, 0.12);
+      color: var(--color-danger);
+      border: 1px solid rgba(239, 68, 68, 0.25);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="title-group">
+        <h1>Forward Trajectory & Retrospective Confidence Envelope</h1>
+        <p>statistical model horizon: 30d · retrospective backtest & forward 95% ci · currency: usd</p>
+      </div>
+      <div class="horizon-controls">
+        <button class="horizon-btn" onclick="switchHorizon('7d', this)">7D</button>
+        <button class="horizon-btn active" onclick="switchHorizon('30d', this)">30D</button>
+        <button class="horizon-btn" onclick="switchHorizon('90d', this)">90D</button>
+      </div>
+    </header>
+
+    <!-- KPI Summary Cards -->
+    <div class="kpi-strip">
+      <div class="kpi-card">
+        <div class="kpi-label">Current Cash Balance (T₀)</div>
+        <div class="kpi-value" id="kpi-current-cash">$2,450,800.00</div>
+        <div class="kpi-hint">Settled as of 2026-08-31</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Historical Model Accuracy</div>
+        <div class="kpi-value" style="color: var(--color-success)" id="kpi-accuracy">94.1% In-Bounds</div>
+        <div class="kpi-hint">16 of 17 historical points within CI</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Mean Historical Variance</div>
+        <div class="kpi-value" style="color: var(--color-hist-projected)" id="kpi-variance">+$42,120.50</div>
+        <div class="kpi-hint">Actual vs Model Backtest Deviation</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Forecast Horizon End (T+30)</div>
+        <div class="kpi-value" style="color: var(--color-future-projected)" id="kpi-end-forecast">-$342,180.25</div>
+        <div class="kpi-hint">Expected 95% CI: [-$4.26M, +$3.58M]</div>
+      </div>
+    </div>
+
+    <!-- Interactive Canvas -->
+    <div class="chart-wrapper">
+      <canvas id="forecastChart"></canvas>
+      <div id="custom-tooltip"></div>
+    </div>
+
+    <!-- Legend -->
+    <footer class="legend-container">
+      <div class="legend-item">
+        <span class="legend-badge actual"></span>
+        <span>Historical Settled Actual</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-badge hist-proj"></span>
+        <span>Historical Model Baseline</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-badge hist-ci"></span>
+        <span>Historical Retrospective 95% CI</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-badge future-proj"></span>
+        <span>Projected Cash (Forward AI Forecast)</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-badge future-ci"></span>
+        <span>Future 95% Confidence Band</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    /**
+     * =========================================================================
+     * 1. TIME-SERIES DATASET GENERATOR WITH HISTORICAL & FUTURE INTERVALS
+     * =========================================================================
+     * Defines a 34-day span:
+     * - Historical segment: Day -16 to Day 0 (2026-08-15 to 2026-08-31)
+     * - Transition Day: 2026-08-31 (Current Day T_0)
+     * - Forward Projection: Day +1 to Day +17 (2026-09-01 to 2026-09-17)
+     */
+    const RAW_DATA = [
+      // Historical Dates (Pre-Day)
+      { date: '2026-08-15', actual: 2150000, histProj: 2100000, histLower: 1850000, histUpper: 2350000, type: 'historical' },
+      { date: '2026-08-16', actual: 2180000, histProj: 2120000, histLower: 1860000, histUpper: 2380000, type: 'historical' },
+      { date: '2026-08-17', actual: 2210000, histProj: 2160000, histLower: 1880000, histUpper: 2440000, type: 'historical' },
+      { date: '2026-08-18', actual: 2190000, histProj: 2180000, histLower: 1890000, histUpper: 2470000, type: 'historical' },
+      { date: '2026-08-19', actual: 2260000, histProj: 2200000, histLower: 1900000, histUpper: 2500000, type: 'historical' },
+      { date: '2026-08-20', actual: 2300000, histProj: 2240000, histLower: 1930000, histUpper: 2550000, type: 'historical' },
+      { date: '2026-08-21', actual: 2280000, histProj: 2270000, histLower: 1950000, histUpper: 2590000, type: 'historical' },
+      { date: '2026-08-22', actual: 2320000, histProj: 2290000, histLower: 1960000, histUpper: 2620000, type: 'historical' },
+      { date: '2026-08-23', actual: 2350000, histProj: 2310000, histLower: 1970000, histUpper: 2650000, type: 'historical' },
+      { date: '2026-08-24', actual: 2390000, histProj: 2340000, histLower: 1990000, histUpper: 2690000, type: 'historical' },
+      { date: '2026-08-25', actual: 2410000, histProj: 2370000, histLower: 2010000, histUpper: 2730000, type: 'historical' },
+      { date: '2026-08-26', actual: 2380000, histProj: 2390000, histLower: 2020000, histUpper: 2760000, type: 'historical' },
+      { date: '2026-08-27', actual: 2430000, histProj: 2410000, histLower: 2040000, histUpper: 2780000, type: 'historical' },
+      { date: '2026-08-28', actual: 2470000, histProj: 2430000, histLower: 2050000, histUpper: 2810000, type: 'historical' },
+      { date: '2026-08-29', actual: 2440000, histProj: 2440000, histLower: 2060000, histUpper: 2820000, type: 'historical' },
+      { date: '2026-08-30', actual: 2460000, histProj: 2450000, histLower: 2070000, histUpper: 2830000, type: 'historical' },
+      // Transition Anchor Date (T_0: 2026-08-31)
+      { date: '2026-08-31', actual: 2450800, histProj: 2450800, histLower: 2080000, histUpper: 2821600, futureProj: 2450800, futureLower: 2080000, futureUpper: 2821600, type: 'transition' },
+      // Forward Projections
+      { date: '2026-09-01', futureProj: 2380000, futureLower: 1950000, futureUpper: 2890000, type: 'future' },
+      { date: '2026-09-02', futureProj: 2290000, futureLower: 1800000, futureUpper: 2980000, type: 'future' },
+      { date: '2026-09-03', futureProj: 2180000, futureLower: 1650000, futureUpper: 3080000, type: 'future' },
+      { date: '2026-09-04', futureProj: 2050000, futureLower: 1450000, futureUpper: 3200000, type: 'future' },
+      { date: '2026-09-05', futureProj: 1920000, futureLower: 1250000, futureUpper: 3340000, type: 'future' },
+      { date: '2026-09-06', futureProj: 1780000, futureLower: 1020000, futureUpper: 3490000, type: 'future' },
+      { date: '2026-09-07', futureProj: 1620000, futureLower: 780000, futureUpper: 3650000, type: 'future' },
+      { date: '2026-09-08', futureProj: 1450000, futureLower: 510000, futureUpper: 3820000, type: 'future' },
+      { date: '2026-09-09', futureProj: 1270000, futureLower: 220000, futureUpper: 4010000, type: 'future' },
+      { date: '2026-09-10', futureProj: 1080000, futureLower: -100000, futureUpper: 4210000, type: 'future' },
+      { date: '2026-09-11', futureProj: 880000, futureLower: -450000, futureUpper: 4420000, type: 'future' },
+      { date: '2026-09-12', futureProj: 670000, futureLower: -830000, futureUpper: 4640000, type: 'future' },
+      { date: '2026-09-13', futureProj: 450000, futureLower: -1240000, futureUpper: 4880000, type: 'future' },
+      { date: '2026-09-14', futureProj: 220000, futureLower: -1680000, futureUpper: 5120000, type: 'future' },
+      { date: '2026-09-15', futureProj: -20000, futureLower: -2150000, futureUpper: 5380000, type: 'future' },
+      { date: '2026-09-16', futureProj: -270000, futureLower: -2650000, futureUpper: 5650000, type: 'future' },
+      { date: '2026-09-17', futureProj: -530000, futureLower: -3180000, futureUpper: 5930000, type: 'future' },
+    ];
+
+    /**
+     * =========================================================================
+     * 2. STATISTICAL BOUND & VARIANCE CALCULATION UTILITIES
+     * =========================================================================
+     */
+    function formatMoney(num) {
+      if (num === null || num === undefined) return '—';
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(num);
+    }
+
+    function formatCompactMoney(num) {
+      if (Math.abs(num) >= 1e6) {
+        return (num / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
+      }
+      if (Math.abs(num) >= 1e3) {
+        return (num / 1e3).toFixed(0) + 'K';
+      }
+      return num.toString();
+    }
+
+    /**
+     * Calculates historical variance metrics:
+     * - delta: actual - histProj
+     * - isInBounds: actual >= histLower && actual <= histUpper
+     * - pctVariance: ((actual - histProj) / histProj) * 100
+     */
+    function calculateVariance(item) {
+      if (item.actual == null || item.histProj == null) return null;
+      const delta = item.actual - item.histProj;
+      const isInBounds = item.actual >= item.histLower && item.actual <= item.histUpper;
+      const pctVariance = ((delta / item.histProj) * 100).toFixed(2);
+      return { delta, isInBounds, pctVariance };
+    }
+
+    /**
+     * =========================================================================
+     * 3. CHART.JS CONFIGURATION & RENDER LOGIC
+     * =========================================================================
+     */
+    const labels = RAW_DATA.map(d => d.date);
+
+    // Segment Series Separation
+    const histActualSeries = RAW_DATA.map(d => d.actual ?? null);
+    const histProjSeries = RAW_DATA.map(d => d.histProj ?? null);
+    const histUpperSeries = RAW_DATA.map(d => d.histUpper ?? null);
+    const histLowerSeries = RAW_DATA.map(d => d.histLower ?? null);
+
+    const futureProjSeries = RAW_DATA.map(d => d.futureProj ?? null);
+    const futureUpperSeries = RAW_DATA.map(d => d.futureUpper ?? null);
+    const futureLowerSeries = RAW_DATA.map(d => d.futureLower ?? null);
+
+    const ctx = document.getElementById('forecastChart').getContext('2d');
+    const tooltipEl = document.getElementById('custom-tooltip');
+
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          // 1. Historical Confidence Envelope (Upper Bound -> Filled down to Lower Bound)
+          {
+            label: 'Historical Upper Bound',
+            data: histUpperSeries,
+            borderColor: 'rgba(6, 182, 212, 0.35)',
+            borderWidth: 1,
+            borderDash: [3, 3],
+            pointRadius: 0,
+            fill: '+1', // Fill down to dataset index +1 (Historical Lower Bound)
+            backgroundColor: 'rgba(6, 182, 212, 0.12)',
+            tension: 0.3,
+          },
+          {
+            label: 'Historical Lower Bound',
+            data: histLowerSeries,
+            borderColor: 'rgba(6, 182, 212, 0.35)',
+            borderWidth: 1,
+            borderDash: [3, 3],
+            pointRadius: 0,
+            fill: false,
+            tension: 0.3,
+          },
+
+          // 2. Future Confidence Envelope (Upper Bound -> Filled down to Lower Bound)
+          {
+            label: 'Future Upper Bound (95% CI)',
+            data: futureUpperSeries,
+            borderColor: 'rgba(168, 85, 247, 0.45)',
+            borderWidth: 1,
+            pointRadius: 0,
+            fill: '+1', // Fill down to dataset index +1 (Future Lower Bound)
+            backgroundColor: 'rgba(168, 85, 247, 0.16)',
+            tension: 0.3,
+          },
+          {
+            label: 'Future Lower Bound (95% CI)',
+            data: futureLowerSeries,
+            borderColor: 'rgba(168, 85, 247, 0.45)',
+            borderWidth: 1,
+            pointRadius: 0,
+            fill: false,
+            tension: 0.3,
+          },
+
+          // 3. Historical Model Backtest Projection Line
+          {
+            label: 'Historical Model Baseline',
+            data: histProjSeries,
+            borderColor: '#06B6D4', // Cyan
+            borderWidth: 2,
+            borderDash: [4, 4],
+            pointRadius: 2,
+            pointBackgroundColor: '#06B6D4',
+            pointBorderColor: '#141417',
+            pointBorderWidth: 1,
+            tension: 0.2,
+          },
+
+          // 4. Historical Settled Actual Line
+          {
+            label: 'Historical Settled Actual',
+            data: histActualSeries,
+            borderColor: '#10B981', // Emerald
+            borderWidth: 2.5,
+            pointRadius: 3.5,
+            pointBackgroundColor: '#10B981',
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: '#34D399',
+            pointHoverBorderColor: '#FFFFFF',
+            pointHoverBorderWidth: 2,
+            tension: 0.2,
+          },
+
+          // 5. Future AI Projected Trajectory Line
+          {
+            label: 'Projected Cash (AI Forecast)',
+            data: futureProjSeries,
+            borderColor: '#A855F7', // Violet
+            borderWidth: 3,
+            pointRadius: 4,
+            pointBackgroundColor: '#A855F7',
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: '#C084FC',
+            pointHoverBorderColor: '#FFFFFF',
+            pointHoverBorderWidth: 2,
+            borderDash: [5, 4],
+            tension: 0.2,
+          },
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+          mode: 'index',
+          intersect: false,
+        },
+        plugins: {
+          legend: {
+            display: false, // Customized external legend
+          },
+          tooltip: {
+            enabled: false, // Customized high-precision tooltip
+            external: function(context) {
+              const { chart, tooltip } = context;
+              if (tooltip.opacity === 0) {
+                tooltipEl.style.opacity = '0';
+                return;
+              }
+
+              const dataIndex = tooltip.dataPoints[0].dataIndex;
+              const item = RAW_DATA[dataIndex];
+              const variance = calculateVariance(item);
+
+              const isHist = item.type === 'historical' || (item.type === 'transition' && item.actual != null);
+              const isFuture = item.type === 'future' || item.type === 'transition';
+
+              let html = `
+                <div class="tt-date">
+                  <span>${item.date}</span>
+                  <span class="tt-badge ${isFuture && !isHist ? 'future' : 'hist'}">
+                    ${item.type === 'transition' ? 'Transition (T₀)' : isHist ? 'Historical' : 'Forward 95% CI'}
+                  </span>
+                </div>
+              `;
+
+              // Historical values
+              if (item.actual != null) {
+                html += `
+                  <div class="tt-row">
+                    <span class="tt-label">Settled Actual:</span>
+                    <span class="tt-val" style="color: var(--color-hist-actual)">${formatMoney(item.actual)}</span>
+                  </div>
+                `;
+              }
+              if (item.histProj != null) {
+                html += `
+                  <div class="tt-row">
+                    <span class="tt-label">Historical Model Proj:</span>
+                    <span class="tt-val" style="color: var(--color-hist-projected)">${formatMoney(item.histProj)}</span>
+                  </div>
+                  <div class="tt-row">
+                    <span class="tt-label">Retrospective CI:</span>
+                    <span class="tt-val" style="font-size: 0.7rem; color: var(--text-muted)">[${formatCompactMoney(item.histLower)}, ${formatCompactMoney(item.histUpper)}]</span>
+                  </div>
+                `;
+              }
+
+              // Variance computation for historical points
+              if (variance) {
+                html += `
+                  <div class="tt-variance">
+                    <div class="tt-row">
+                      <span class="tt-label">Model Deviation:</span>
+                      <span class="tt-val" style="color: ${variance.delta >= 0 ? 'var(--color-success)' : 'var(--color-warning)'}">
+                        ${variance.delta >= 0 ? '+' : ''}${formatMoney(variance.delta)} (${variance.pctVariance}%)
+                      </span>
+                    </div>
+                    <div>
+                      <span class="tt-variance-badge ${variance.isInBounds ? 'in-bounds' : 'out-bounds'}">
+                        ${variance.isInBounds ? '✓ Within 95% Bound' : '⚠ Out-of-Bounds Break'}
+                      </span>
+                    </div>
+                  </div>
+                `;
+              }
+
+              // Future values
+              if (item.type === 'future' || (item.type === 'transition' && item.futureProj != null)) {
+                if (item.type !== 'transition') {
+                  html += `
+                    <div class="tt-row">
+                      <span class="tt-label">Upper Bound (95% CI):</span>
+                      <span class="tt-val" style="color: var(--color-future-projected)">${formatMoney(item.futureUpper)}</span>
+                    </div>
+                    <div class="tt-row">
+                      <span class="tt-label">Lower Bound (95% CI):</span>
+                      <span class="tt-val" style="color: var(--color-future-projected)">${formatMoney(item.futureLower)}</span>
+                    </div>
+                    <div class="tt-row" style="margin-top: 0.4rem; padding-top: 0.35rem; border-top: 1px solid var(--border-subtle)">
+                      <span class="tt-label">Projected Position:</span>
+                      <span class="tt-val" style="color: #FFFFFF; font-weight: 700">${formatMoney(item.futureProj)}</span>
+                    </div>
+                  `;
+                }
+              }
+
+              tooltipEl.innerHTML = html;
+
+              // Tooltip positioning
+              const chartRect = chart.canvas.getBoundingClientRect();
+              const left = tooltip.caretX + 15;
+              const top = tooltip.caretY - 20;
+
+              tooltipEl.style.opacity = '1';
+              tooltipEl.style.left = `${Math.min(left, chart.width - 260)}px`;
+              tooltipEl.style.top = `${Math.max(10, Math.min(top, chart.height - 180))}px`;
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: {
+              color: 'rgba(255, 255, 255, 0.05)',
+              drawBorder: false,
+            },
+            ticks: {
+              color: '#707079',
+              font: {
+                family: 'IBM Plex Mono',
+                size: 10,
+              },
+              maxRotation: 0,
+              autoSkip: true,
+              maxTicksLimit: 10,
+            }
+          },
+          y: {
+            grid: {
+              color: 'rgba(255, 255, 255, 0.05)',
+              drawBorder: false,
+            },
+            ticks: {
+              color: '#707079',
+              font: {
+                family: 'IBM Plex Mono',
+                size: 10,
+              },
+              callback: function(val) {
+                return '$' + formatCompactMoney(val);
+              }
+            }
+          }
+        }
+      }
+    });
+
+    /**
+     * Horizon Switcher Handler
+     */
+    function switchHorizon(horizon, btn) {
+      document.querySelectorAll('.horizon-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (horizon === '7d') {
+        chart.options.scales.x.ticks.maxTicksLimit = 7;
+      } else if (horizon === '30d') {
+        chart.options.scales.x.ticks.maxTicksLimit = 10;
+      } else {
+        chart.options.scales.x.ticks.maxTicksLimit = 14;
+      }
+      chart.update();
+    }
+  </script>
+</body>
+</html>

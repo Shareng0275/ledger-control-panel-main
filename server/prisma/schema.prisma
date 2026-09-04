@@ -1,0 +1,386 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id                   String                 @id @default(uuid())
+  name                 String
+  slug                 String                 @unique
+  createdAt            DateTime               @default(now()) @map("created_at")
+  updatedAt            DateTime               @updatedAt @map("updated_at")
+  memberships          Membership[]
+  uploads              Upload[]
+  reconciliationRuns   ReconciliationRun[]
+  transactions         Transaction[]
+  matches              Match[]
+  exceptions           Exception[]
+  exceptionResolutions ExceptionResolution[]
+  forecasts            Forecast[]
+  aiInsights           AiInsight[]
+  auditLogs            AuditLog[]
+  recordDrafts         RecordDraft[]
+  userPreferences      UserPreference[]
+  scheduledReports     ScheduledReport[]
+
+  @@map("organizations")
+}
+
+model User {
+  id                   String                 @id @default(uuid())
+  email                String                 @unique
+  passwordHash         String                 @map("password_hash")
+  fullName             String                 @map("full_name")
+  isActive             Boolean                @default(true) @map("is_active")
+  createdAt            DateTime               @default(now()) @map("created_at")
+  updatedAt            DateTime               @updatedAt @map("updated_at")
+  memberships          Membership[]
+  refreshTokens        RefreshToken[]
+  reconciliationRuns   ReconciliationRun[]    @relation("RunsCreatedByUser")
+  resolvedExceptions   Exception[]            @relation("ExceptionsResolvedByUser")
+  exceptionResolutions ExceptionResolution[]  @relation("ResolutionsByUser")
+  authoredDrafts       RecordDraft[]          @relation("AuthorDrafts")
+  reviewedDrafts       RecordDraft[]          @relation("ReviewerDrafts")
+  preference           UserPreference?
+  auditLogs            AuditLog[]
+
+  @@index([email], map: "ix_users_email_lower")
+  @@map("users")
+}
+
+model Membership {
+  id             String   @id @default(uuid())
+  organizationId String   @map("organization_id")
+  userId         String   @map("user_id")
+  role           String   @default("VIEWER")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId], map: "uq_membership_org_user")
+  @@index([userId], map: "ix_memberships_user_id")
+  @@index([organizationId], map: "ix_memberships_org_id")
+  @@map("memberships")
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  tokenHash String   @unique @map("token_hash")
+  userId    String   @map("user_id")
+  expiresAt DateTime @map("expires_at")
+  revoked   Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId], map: "ix_refresh_tokens_user_id")
+  @@index([tokenHash], map: "ix_refresh_tokens_hash")
+  @@map("refresh_tokens")
+}
+
+model Upload {
+  id               String   @id @default(uuid())
+  organizationId   String   @map("organization_id")
+  filename         String
+  uploadType       String   @map("upload_type")
+  storagePath      String   @map("storage_path")
+  rowCount         Int?     @default(0) @map("row_count")
+  status           String   @default("PENDING")
+  validationErrors String?  @map("validation_errors")
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt @map("updated_at")
+
+  organization  Organization        @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  transactions  Transaction[]
+  statementRuns ReconciliationRun[] @relation("StatementUploadRuns")
+  ledgerRuns    ReconciliationRun[] @relation("LedgerUploadRuns")
+
+  @@index([organizationId], map: "ix_uploads_organization_id")
+  @@map("uploads")
+}
+
+model ReconciliationRun {
+  id                   String    @id @default(uuid())
+  organizationId       String    @map("organization_id")
+  statementUploadId    String    @map("statement_upload_id")
+  ledgerUploadId       String?   @map("ledger_upload_id")
+  status               String    @default("PENDING")
+  totalTransactions    Int       @default(0) @map("total_transactions")
+  matchedCount         Int       @default(0) @map("matched_count")
+  exceptionCount       Int       @default(0) @map("exception_count")
+  pendingReviewCount   Int       @default(0) @map("pending_review_count")
+  totalValueReconciled Float     @default(0.0) @map("total_value_reconciled")
+  averageConfidence    Float?    @map("average_confidence")
+  errorMessage         String?   @map("error_message")
+  createdBy            String    @map("created_by")
+  startedAt            DateTime? @map("started_at")
+  completedAt          DateTime? @map("completed_at")
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @updatedAt @map("updated_at")
+
+  organization         Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  statementUpload      Upload                @relation("StatementUploadRuns", fields: [statementUploadId], references: [id], onDelete: Cascade)
+  ledgerUpload         Upload?               @relation("LedgerUploadRuns", fields: [ledgerUploadId], references: [id], onDelete: SetNull)
+  creator              User                  @relation("RunsCreatedByUser", fields: [createdBy], references: [id], onDelete: Restrict)
+  transactions         Transaction[]
+  matches              Match[]
+  exceptions           Exception[]
+  exceptionResolutions ExceptionResolution[]
+  aiInsights           AiInsight[]
+
+  @@index([createdBy], map: "ix_reconciliation_runs_user_id")
+  @@index([organizationId], map: "ix_reconciliation_runs_org_id")
+  @@index([status], map: "ix_reconciliation_runs_status")
+  @@map("reconciliation_runs")
+}
+
+model Transaction {
+  id                    String    @id @default(uuid())
+  organizationId        String    @map("organization_id")
+  uploadId              String    @map("upload_id")
+  reconciliationRunId   String?   @map("reconciliation_run_id")
+  source                String
+  transactionDate       DateTime  @map("transaction_date")
+  description           String
+  normalizedDescription String?   @map("normalized_description")
+  amount                Float
+  currency              String    @default("USD")
+  externalReference     String?   @map("external_reference")
+  normalizedReference   String?   @map("normalized_reference")
+  status                String    @default("UNMATCHED")
+  confidence            Float?
+  transactionHash       String?   @map("transaction_hash")
+  rawData               String?   @map("raw_data")
+  createdAt             DateTime  @default(now()) @map("created_at")
+  updatedAt             DateTime  @updatedAt @map("updated_at")
+
+  organization         Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  upload               Upload                @relation(fields: [uploadId], references: [id], onDelete: Cascade)
+  reconciliationRun    ReconciliationRun?    @relation(fields: [reconciliationRunId], references: [id], onDelete: SetNull)
+  statementMatches     Match[]               @relation("StatementTransactionMatches")
+  ledgerMatches        Match[]               @relation("LedgerTransactionMatches")
+  primaryExceptions    Exception[]           @relation("TransactionExceptions")
+  candidateExceptions  Exception[]           @relation("CandidateTransactionExceptions")
+  resolutionCandidates ExceptionResolution[] @relation("ResolutionCandidateTx")
+  aiInsights           AiInsight[]
+
+  @@index([organizationId], map: "ix_transactions_org_id")
+  @@index([reconciliationRunId], map: "ix_transactions_run_id")
+  @@index([status], map: "ix_transactions_status")
+  @@index([source], map: "ix_transactions_source")
+  @@index([externalReference], map: "ix_transactions_external_ref")
+  @@index([normalizedReference], map: "ix_transactions_norm_ref")
+  @@index([amount], map: "ix_transactions_amount")
+  @@map("transactions")
+}
+
+model Match {
+  id                     String   @id @default(uuid())
+  organizationId         String   @map("organization_id")
+  reconciliationRunId    String   @map("reconciliation_run_id")
+  statementTransactionId String   @unique @map("statement_transaction_id")
+  ledgerTransactionId    String   @unique @map("ledger_transaction_id")
+  method                 String
+  confidence             Float
+  scoreDetails           String?  @map("score_details")
+  reason                 String?
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
+
+  organization         Organization      @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  reconciliationRun    ReconciliationRun @relation(fields: [reconciliationRunId], references: [id], onDelete: Cascade)
+  statementTransaction Transaction       @relation("StatementTransactionMatches", fields: [statementTransactionId], references: [id], onDelete: Cascade)
+  ledgerTransaction    Transaction       @relation("LedgerTransactionMatches", fields: [ledgerTransactionId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId], map: "ix_matches_org_id")
+  @@index([reconciliationRunId], map: "ix_matches_run_id")
+  @@index([method], map: "ix_matches_method")
+  @@map("matches")
+}
+
+model Exception {
+  id                         String    @id @default(uuid())
+  organizationId             String    @map("organization_id")
+  reconciliationRunId        String    @map("reconciliation_run_id")
+  transactionId              String    @map("transaction_id")
+  bestCandidateTransactionId String?   @map("best_candidate_transaction_id")
+  reasonText                 String    @map("reason_text")
+  priority                   String    @default("MEDIUM")
+  status                     String    @default("OPEN")
+  resolutionAction           String?   @map("resolution_action")
+  resolvedBy                 String?   @map("resolved_by")
+  resolvedAt                 DateTime? @map("resolved_at")
+  createdAt                  DateTime  @default(now()) @map("created_at")
+  updatedAt                  DateTime  @updatedAt @map("updated_at")
+
+  organization             Organization          @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  reconciliationRun        ReconciliationRun     @relation(fields: [reconciliationRunId], references: [id], onDelete: Cascade)
+  transaction              Transaction           @relation("TransactionExceptions", fields: [transactionId], references: [id], onDelete: Cascade)
+  bestCandidateTransaction Transaction?          @relation("CandidateTransactionExceptions", fields: [bestCandidateTransactionId], references: [id], onDelete: SetNull)
+  resolver                 User?                 @relation("ExceptionsResolvedByUser", fields: [resolvedBy], references: [id], onDelete: SetNull)
+  resolutions              ExceptionResolution[]
+
+  @@index([organizationId], map: "ix_exceptions_org_id")
+  @@index([reconciliationRunId], map: "ix_exceptions_run_id")
+  @@index([transactionId], map: "ix_exceptions_transaction_id")
+  @@index([status], map: "ix_exceptions_status")
+  @@index([priority], map: "ix_exceptions_priority")
+  @@map("exceptions")
+}
+
+model ExceptionResolution {
+  id                     String   @id @default(uuid())
+  organizationId         String   @map("organization_id")
+  exceptionId            String   @map("exception_id")
+  reconciliationRunId    String?  @map("reconciliation_run_id")
+  action                 String
+  candidateTransactionId String?  @map("candidate_transaction_id")
+  note                   String?
+  resolvedBy             String   @map("resolved_by")
+  createdAt              DateTime @default(now()) @map("created_at")
+
+  organization         Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  exception            Exception          @relation(fields: [exceptionId], references: [id], onDelete: Cascade)
+  reconciliationRun    ReconciliationRun? @relation(fields: [reconciliationRunId], references: [id], onDelete: SetNull)
+  candidateTransaction Transaction?       @relation("ResolutionCandidateTx", fields: [candidateTransactionId], references: [id], onDelete: SetNull)
+  resolver             User               @relation("ResolutionsByUser", fields: [resolvedBy], references: [id], onDelete: Restrict)
+
+  @@index([exceptionId], map: "ix_exception_resolutions_exception_id")
+  @@index([resolvedBy], map: "ix_exception_resolutions_user_id")
+  @@index([organizationId], map: "ix_exception_resolutions_org_id")
+  @@map("exception_resolutions")
+}
+
+model Forecast {
+  id             String   @id @default(uuid())
+  organizationId String   @map("organization_id")
+  horizon        String   @default("30d")
+  currency       String   @default("USD")
+  projectedCash  Float    @map("projected_cash")
+  confidence     Float
+  modelName      String   @default("EWMA_OLS_HYBRID") @map("model_name")
+  analytics      String?
+  points         String?
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("forecasts")
+}
+
+model AiInsight {
+  id                  String   @id @default(uuid())
+  organizationId      String   @map("organization_id")
+  reconciliationRunId String?  @map("reconciliation_run_id")
+  transactionId       String?  @map("transaction_id")
+  category            String
+  severity            String   @default("MEDIUM")
+  title               String
+  explanation         String
+  scoreDetails        String?  @map("score_details")
+  isDismissed         Boolean  @default(false) @map("is_dismissed")
+  createdAt           DateTime @default(now()) @map("created_at")
+
+  organization      Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  reconciliationRun ReconciliationRun? @relation(fields: [reconciliationRunId], references: [id], onDelete: SetNull)
+  transaction       Transaction?       @relation(fields: [transactionId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId], map: "ix_ai_insights_org_id")
+  @@index([reconciliationRunId], map: "ix_ai_insights_run_id")
+  @@index([category], map: "ix_ai_insights_category")
+  @@index([severity], map: "ix_ai_insights_severity")
+  @@map("ai_insights")
+}
+
+model AuditLog {
+  id             String   @id @default(uuid())
+  organizationId String   @map("organization_id")
+  actorId        String?  @map("actor_id")
+  action         String
+  entityType     String   @map("entity_type")
+  entityId       String?  @map("entity_id")
+  details        String?
+  ipAddress      String?  @map("ip_address")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  actor        User?        @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([actorId], map: "ix_audit_log_user_id")
+  @@index([organizationId], map: "ix_audit_log_org_id")
+  @@index([action], map: "ix_audit_log_action")
+  @@map("audit_log")
+}
+
+model RecordDraft {
+  id             String    @id @default(uuid())
+  organizationId String    @map("organization_id")
+  authorId       String    @map("author_id")
+  title          String
+  description    String
+  amount         Float
+  currency       String    @default("USD")
+  category       String    @default("ADJUSTMENT")
+  status         String    @default("DRAFT")
+  version        Int       @default(1)
+  reviewNotes    String?   @map("review_notes")
+  reviewedBy     String?   @map("reviewed_by")
+  reviewedAt     DateTime? @map("reviewed_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  author       User         @relation("AuthorDrafts", fields: [authorId], references: [id], onDelete: Cascade)
+  reviewer     User?        @relation("ReviewerDrafts", fields: [reviewedBy], references: [id], onDelete: SetNull)
+
+  @@index([organizationId], map: "ix_record_drafts_org_id")
+  @@index([authorId], map: "ix_record_drafts_author_id")
+  @@index([status], map: "ix_record_drafts_status")
+  @@map("record_drafts")
+}
+
+model UserPreference {
+  id             String   @id @default(uuid())
+  userId         String   @unique @map("user_id")
+  organizationId String   @map("organization_id")
+  theme          String   @default("light")
+  defaultHorizon String   @default("30d") @map("default_horizon")
+  visibleKpis    String   @default("[\"matched_rate\",\"total_value\",\"exception_count\",\"volatility\"]") @map("visible_kpis")
+  dashboardCards String   @default("[\"summary_donut\",\"confidence_histogram\",\"forecast_line\",\"recent_exceptions\"]") @map("dashboard_cards")
+  emailAlerts    Boolean  @default(true) @map("email_alerts")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("user_preferences")
+}
+
+model ScheduledReport {
+  id             String    @id @default(uuid())
+  organizationId String    @map("organization_id")
+  title          String
+  reportType     String    @default("DAILY_RECONCILIATION") @map("report_type")
+  frequency      String    @default("DAILY")
+  format         String    @default("CSV")
+  status         String    @default("COMPLETED")
+  payload        String?
+  lastRunAt      DateTime? @map("last_run_at")
+  nextRunAt      DateTime? @map("next_run_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId], map: "ix_scheduled_reports_org_id")
+  @@map("scheduled_reports")
+}
+
+

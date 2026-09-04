@@ -1,0 +1,136 @@
+date,description,amount,currency,reference,source,status
+2026-06-01,STRIPE Gateway Payout - Acme E-Commerce SaaS,4324.50,USD,STRIPE-BATCH-1001,stripe,PENDING_REVIEW
+2026-06-01,ADYEN Gateway Payout - Quantum Retail Checkout,27673.40,USD,ADYEN-BATCH-1002,adyen,PENDING_REVIEW
+2026-06-02,STRIPE Gateway Payout - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1003,stripe,SETTLED
+2026-06-02,SQUARE Gateway Payout - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1004,square,SETTLED
+2026-06-03,PAYPAL Gateway Payout - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1005,paypal,SETTLED
+2026-06-03,STRIPE Gateway Payout - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1006,stripe,SETTLED
+2026-06-04,ADYEN Gateway Payout - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1007,adyen,SETTLED
+2026-06-04,RAZORPAY Gateway Payout - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1008,razorpay,SETTLED
+2026-06-05,SQUARE Gateway Payout - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1009,square,SETTLED
+2026-06-05,ADYEN Gateway Payout - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1010,adyen,SETTLED
+2026-06-08,ADYEN Gateway Payout - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1011,adyen,SETTLED
+2026-06-08,STRIPE Gateway Payout - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1012,stripe,SETTLED
+2026-06-09,WIRE Gateway Payout - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1013,wire,SETTLED
+2026-06-09,STRIPE Gateway Payout - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1014,stripe,SETTLED
+2026-06-10,STRIPE Gateway Payout - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1015,stripe,SETTLED
+2026-06-10,PAYPAL Gateway Payout - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1016,paypal,SETTLED
+2026-06-11,STRIPE Gateway Payout - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1017,stripe,SETTLED
+2026-06-11,ADYEN Gateway Payout - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1018,adyen,SETTLED
+2026-06-12,STRIPE Gateway Payout - Nova Cloud Services,12092.50,USD,STRIPE-BATCH-1019,stripe,PENDING_REVIEW
+2026-06-12,SQUARE Gateway Payout - Vertex Point of Sale,8888.20,USD,SQUARE-BATCH-1020,square,PENDING_REVIEW
+2026-06-15,SQUARE Gateway Payout - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1021,square,SETTLED
+2026-06-15,ADYEN Gateway Payout - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1022,adyen,SETTLED
+2026-06-16,STRIPE Gateway Payout - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1023,stripe,SETTLED
+2026-06-16,WIRE Gateway Payout - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1024,wire,SETTLED
+2026-06-16,Stripe Direct Checkout - Uncaptured Break #1025,1075.00,USD,STRIPE-UNREC-1025,stripe,EXCEPTION
+2026-06-17,RAZORPAY Gateway Payout - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1026,razorpay,SETTLED
+2026-06-17,STRIPE Gateway Payout - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1027,stripe,SETTLED
+2026-06-18,ADYEN Gateway Payout - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1028,adyen,SETTLED
+2026-06-18,STRIPE Gateway Payout - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1029,stripe,SETTLED
+2026-06-19,WIRE Gateway Payout - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1030,wire,SETTLED
+2026-06-19,STRIPE Gateway Payout - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1031,stripe,SETTLED
+2026-06-22,STRIPE Gateway Payout - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1032,stripe,SETTLED
+2026-06-22,SQUARE Gateway Payout - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1033,square,SETTLED
+2026-06-23,PAYPAL Gateway Payout - Apex Global Subscriptions,6557.80,USD,PAYPAL-BATCH-1034,paypal,PENDING_REVIEW
+2026-06-23,STRIPE Gateway Payout - Helios Enterprise API,33066.10,USD,STRIPE-BATCH-1035,stripe,PENDING_REVIEW
+2026-06-24,ADYEN Gateway Payout - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1036,adyen,SETTLED
+2026-06-24,RAZORPAY Gateway Payout - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1037,razorpay,SETTLED
+2026-06-25,SQUARE Gateway Payout - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1038,square,SETTLED
+2026-06-25,ADYEN Gateway Payout - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1039,adyen,SETTLED
+2026-06-26,STRIPE Gateway Payout - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1040,stripe,SETTLED
+2026-06-26,WIRE Gateway Payout - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1041,wire,SETTLED
+2026-06-29,WIRE Gateway Payout - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1042,wire,SETTLED
+2026-06-29,STRIPE Gateway Payout - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1043,stripe,SETTLED
+2026-06-30,STRIPE Gateway Payout - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1044,stripe,SETTLED
+2026-06-30,PAYPAL Gateway Payout - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1045,paypal,SETTLED
+2026-07-01,STRIPE Gateway Payout - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1046,stripe,SETTLED
+2026-07-01,ADYEN Gateway Payout - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1047,adyen,SETTLED
+2026-07-02,STRIPE Gateway Payout - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1048,stripe,SETTLED
+2026-07-02,SQUARE Gateway Payout - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1049,square,SETTLED
+2026-07-03,PAYPAL Gateway Payout - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1050,paypal,SETTLED
+2026-07-03,STRIPE Gateway Payout - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1051,stripe,SETTLED
+2026-07-06,STRIPE Gateway Payout - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1052,stripe,SETTLED
+2026-07-06,WIRE Gateway Payout - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1053,wire,SETTLED
+2026-07-07,RAZORPAY Gateway Payout - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1054,razorpay,SETTLED
+2026-07-07,STRIPE Gateway Payout - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1055,stripe,SETTLED
+2026-07-08,ADYEN Gateway Payout - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1056,adyen,SETTLED
+2026-07-08,STRIPE Gateway Payout - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1057,stripe,SETTLED
+2026-07-09,WIRE Gateway Payout - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1058,wire,SETTLED
+2026-07-09,STRIPE Gateway Payout - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1059,stripe,SETTLED
+2026-07-10,STRIPE Gateway Payout - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1060,stripe,SETTLED
+2026-07-10,PAYPAL Gateway Payout - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1061,paypal,SETTLED
+2026-07-13,PAYPAL Gateway Payout - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1062,paypal,SETTLED
+2026-07-13,STRIPE Gateway Payout - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1063,stripe,SETTLED
+2026-07-13,Stripe Direct Checkout - Uncaptured Break #1064,1480.00,USD,STRIPE-UNREC-1064,stripe,EXCEPTION
+2026-07-14,ADYEN Gateway Payout - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1065,adyen,SETTLED
+2026-07-14,RAZORPAY Gateway Payout - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1066,razorpay,SETTLED
+2026-07-15,SQUARE Gateway Payout - Vertex Point of Sale,8888.20,USD,SQUARE-BATCH-1067,square,PENDING_REVIEW
+2026-07-15,ADYEN Gateway Payout - Horizon Mobile In-App,14497.40,USD,ADYEN-BATCH-1068,adyen,PENDING_REVIEW
+2026-07-16,STRIPE Gateway Payout - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1069,stripe,SETTLED
+2026-07-16,WIRE Gateway Payout - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1070,wire,SETTLED
+2026-07-17,RAZORPAY Gateway Payout - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1071,razorpay,SETTLED
+2026-07-17,STRIPE Gateway Payout - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1072,stripe,SETTLED
+2026-07-20,STRIPE Gateway Payout - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1073,stripe,SETTLED
+2026-07-20,PAYPAL Gateway Payout - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1074,paypal,SETTLED
+2026-07-21,STRIPE Gateway Payout - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1075,stripe,SETTLED
+2026-07-21,ADYEN Gateway Payout - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1076,adyen,SETTLED
+2026-07-22,STRIPE Gateway Payout - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1077,stripe,SETTLED
+2026-07-22,SQUARE Gateway Payout - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1078,square,SETTLED
+2026-07-23,PAYPAL Gateway Payout - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1079,paypal,SETTLED
+2026-07-23,STRIPE Gateway Payout - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1080,stripe,SETTLED
+2026-07-24,ADYEN Gateway Payout - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1081,adyen,SETTLED
+2026-07-24,RAZORPAY Gateway Payout - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1082,razorpay,SETTLED
+2026-07-27,RAZORPAY Gateway Payout - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1083,razorpay,SETTLED
+2026-07-27,STRIPE Gateway Payout - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1084,stripe,SETTLED
+2026-07-28,ADYEN Gateway Payout - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1085,adyen,SETTLED
+2026-07-28,STRIPE Gateway Payout - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1086,stripe,SETTLED
+2026-07-29,WIRE Gateway Payout - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1087,wire,SETTLED
+2026-07-29,STRIPE Gateway Payout - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1088,stripe,SETTLED
+2026-07-30,STRIPE Gateway Payout - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1089,stripe,SETTLED
+2026-07-30,PAYPAL Gateway Payout - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1090,paypal,SETTLED
+2026-07-31,STRIPE Gateway Payout - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1091,stripe,SETTLED
+2026-07-31,ADYEN Gateway Payout - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1092,adyen,SETTLED
+2026-08-03,ADYEN Gateway Payout - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1093,adyen,SETTLED
+2026-08-03,RAZORPAY Gateway Payout - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1094,razorpay,SETTLED
+2026-08-04,SQUARE Gateway Payout - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1095,square,SETTLED
+2026-08-04,ADYEN Gateway Payout - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1096,adyen,SETTLED
+2026-08-05,STRIPE Gateway Payout - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1097,stripe,SETTLED
+2026-08-05,WIRE Gateway Payout - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1098,wire,SETTLED
+2026-08-06,RAZORPAY Gateway Payout - Zenith Digital Marketplace,17700.00,USD,RAZORPAY-BATCH-1099,razorpay,PENDING_REVIEW
+2026-08-06,STRIPE Gateway Payout - Strata Systems Billing,21122.80,USD,STRIPE-BATCH-1100,stripe,PENDING_REVIEW
+2026-08-07,ADYEN Gateway Payout - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1101,adyen,SETTLED
+2026-08-07,STRIPE Gateway Payout - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1102,stripe,SETTLED
+2026-08-10,STRIPE Gateway Payout - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1103,stripe,SETTLED
+2026-08-10,ADYEN Gateway Payout - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1104,adyen,SETTLED
+2026-08-11,STRIPE Gateway Payout - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1105,stripe,SETTLED
+2026-08-11,SQUARE Gateway Payout - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1106,square,SETTLED
+2026-08-12,PAYPAL Gateway Payout - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1107,paypal,SETTLED
+2026-08-12,STRIPE Gateway Payout - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1108,stripe,SETTLED
+2026-08-13,ADYEN Gateway Payout - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1109,adyen,SETTLED
+2026-08-13,RAZORPAY Gateway Payout - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1110,razorpay,SETTLED
+2026-08-13,Stripe Direct Checkout - Uncaptured Break #1111,1945.00,USD,STRIPE-UNREC-1111,stripe,EXCEPTION
+2026-08-14,SQUARE Gateway Payout - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1112,square,SETTLED
+2026-08-14,ADYEN Gateway Payout - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1113,adyen,SETTLED
+2026-08-17,ADYEN Gateway Payout - Horizon Mobile In-App,14497.40,USD,ADYEN-BATCH-1114,adyen,PENDING_REVIEW
+2026-08-17,STRIPE Gateway Payout - Acme E-Commerce SaaS,4324.50,USD,STRIPE-BATCH-1115,stripe,PENDING_REVIEW
+2026-08-18,WIRE Gateway Payout - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1116,wire,SETTLED
+2026-08-18,STRIPE Gateway Payout - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1117,stripe,SETTLED
+2026-08-19,STRIPE Gateway Payout - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1118,stripe,SETTLED
+2026-08-19,PAYPAL Gateway Payout - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1119,paypal,SETTLED
+2026-08-20,STRIPE Gateway Payout - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1120,stripe,SETTLED
+2026-08-20,ADYEN Gateway Payout - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1121,adyen,SETTLED
+2026-08-21,STRIPE Gateway Payout - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1122,stripe,SETTLED
+2026-08-21,SQUARE Gateway Payout - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1123,square,SETTLED
+2026-08-24,SQUARE Gateway Payout - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1124,square,SETTLED
+2026-08-24,ADYEN Gateway Payout - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1125,adyen,SETTLED
+2026-08-25,STRIPE Gateway Payout - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1126,stripe,SETTLED
+2026-08-25,WIRE Gateway Payout - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1127,wire,SETTLED
+2026-08-26,RAZORPAY Gateway Payout - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1128,razorpay,SETTLED
+2026-08-26,STRIPE Gateway Payout - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1129,stripe,SETTLED
+2026-08-27,ADYEN Gateway Payout - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1130,adyen,SETTLED
+2026-08-27,STRIPE Gateway Payout - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1131,stripe,SETTLED
+2026-08-28,WIRE Gateway Payout - Omni Corp Enterprise Wire,51930.00,USD,WIRE-BATCH-1132,wire,PENDING_REVIEW
+2026-08-28,STRIPE Gateway Payout - Nova Cloud Services,12092.50,USD,STRIPE-BATCH-1133,stripe,PENDING_REVIEW
+2026-08-31,STRIPE Gateway Payout - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1134,stripe,SETTLED
+2026-08-31,SQUARE Gateway Payout - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1135,square,SETTLED

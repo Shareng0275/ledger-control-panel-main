@@ -1,0 +1,60 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 3 0 R >>
+endobj
+2 0 obj
+<< /Type /Outlines /Count 0 >>
+endobj
+3 0 obj
+<< /Type /Pages /Kids [4 0 R] /Count 1 >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 3 0 R /MediaBox [0 0 612 792] /Contents 5 0 R /Resources << /Font << /F1 6 0 R >> >> >>
+endobj
+5 0 obj
+<< /Length 1192 >>
+stream
+BT
+/F1 13 Tf
+40 740 Td
+(BANK OF AMERICA MERCHANT SERVICES) Tj
+/F1 9 Tf
+0 -18 Td
+(Document: Credit Card Settlement Interchange | Account: US8800021009483726150) Tj
+0 -14 Td
+(Currency: USD / Base | Entity: Acme Financial Corp | Status: VERIFIED & CLEARED) Tj
+0 -20 Td
+/F1 8 Tf
+(--------------------------------------------------------------------------------------------------------------------------------------) Tj
+0 -12 Td
+(DATE         TRANSACTION DESCRIPTION                             REFERENCE            DEBIT          CREDIT         BALANCE) Tj
+0 -10 Td
+(--------------------------------------------------------------------------------------------------------------------------------------) Tj
+0 -13 Td
+(2026-08-01   VISA / MASTERCARD BATCH SETTLEMENT  CARD-BATCH-01                           92,100.00      92,100.00) Tj
+0 -13 Td
+(2026-08-15   INTERCHANGE FEE DEDUCTION BOFA      BOFA-FEE-0826             2,450.00                     89,650.00) Tj
+0 -18 Td
+(--------------------------------------------------------------------------------------------------------------------------------------) Tj
+0 -14 Td
+(RECONCILIATION STATUS: READY FOR INGESTION & FUZZY MATCHING PIPELINE) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /Name /F1 /BaseFont /Courier >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000104 00000 n 
+0000000161 00000 n 
+0000000287 00000 n 
+0000001531 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+1609
+%%EOF

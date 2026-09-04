@@ -1,0 +1,62 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 3 0 R >>
+endobj
+2 0 obj
+<< /Type /Outlines /Count 0 >>
+endobj
+3 0 obj
+<< /Type /Pages /Kids [4 0 R] /Count 1 >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 3 0 R /MediaBox [0 0 612 792] /Contents 5 0 R /Resources << /Font << /F1 6 0 R >> >> >>
+endobj
+5 0 obj
+<< /Length 1316 >>
+stream
+BT
+/F1 13 Tf
+40 740 Td
+(HDFC BANK CORPORATE BANKING) Tj
+/F1 9 Tf
+0 -18 Td
+(Document: India Operations Clearing Statement | Account: IN53HDFC00000449911223) Tj
+0 -14 Td
+(Currency: USD / Base | Entity: Acme Financial Corp | Status: VERIFIED & CLEARED) Tj
+0 -20 Td
+/F1 8 Tf
+(--------------------------------------------------------------------------------------------------------------------------------------) Tj
+0 -12 Td
+(DATE         TRANSACTION DESCRIPTION                             REFERENCE            DEBIT          CREDIT         BALANCE) Tj
+0 -10 Td
+(--------------------------------------------------------------------------------------------------------------------------------------) Tj
+0 -13 Td
+(2026-08-03   RAZORPAY NODAL SETTLEMENT INR       RZP-INR-4412                         2,350,000.00   2,350,000.00) Tj
+0 -13 Td
+(2026-08-10   BANGALORE R&D PAYROLL BATCH         PAY-BLR-0826          1,850,000.00                    500,000.00) Tj
+0 -13 Td
+(2026-08-25   OFFICE INFRASTRUCTURE PRESTIGE TEC  LEASE-BLR-08            250,000.00                    250,000.00) Tj
+0 -18 Td
+(--------------------------------------------------------------------------------------------------------------------------------------) Tj
+0 -14 Td
+(RECONCILIATION STATUS: READY FOR INGESTION & FUZZY MATCHING PIPELINE) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /Name /F1 /BaseFont /Courier >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000104 00000 n 
+0000000161 00000 n 
+0000000287 00000 n 
+0000001655 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+1733
+%%EOF

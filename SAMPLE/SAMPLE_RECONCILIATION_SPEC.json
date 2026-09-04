@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "pipeline_name": "Ledger Control Ingestion & Reconciliation",
+  "track": "AI Finance Controller — Razorpay AI Buildathon",
+  "sample_datasets": {
+    "bank_statement": "SAMPLE_BANK_STATEMENT.csv",
+    "gateway_ledger": "SAMPLE_GATEWAY_LEDGER.csv"
+  },
+  "expected_kpi_metrics": {
+    "total_batched_transactions": 30,
+    "statement_records_count": 15,
+    "ledger_records_count": 15,
+    "total_transaction_volume_usd": 272491.50,
+    "reconciled_value_usd": 154541.50,
+    "auto_matched_pairs": 11,
+    "auto_match_rate_pct": 73.33,
+    "discrepancies_and_exceptions": 8,
+    "average_match_confidence_pct": 96.8
+  },
+  "matching_breakdown": {
+    "pass_1_deterministic_exact": [
+      {
+        "pair_id": 1,
+        "description": "STRIPE PAYOUT SETTLEMENT #9901",
+        "amount": 15450.00,
+        "rule": "Exact Reference & Exact Amount",
+        "confidence": 1.00
+      },
+      {
+        "pair_id": 2,
+        "description": "Razorpay Settlement Payout",
+        "amount": 28900.50,
+        "rule": "Exact Reference & Exact Amount",
+        "confidence": 1.00
+      },
+      {
+        "pair_id": 3,
+        "description": "Customer Inflow Wire Acme Corp",
+        "amount": 45000.00,
+        "rule": "Exact Reference & Exact Amount",
+        "confidence": 1.00
+      },
+      {
+        "pair_id": 4,
+        "description": "Slack Enterprise Grid Annual",
+        "amount": -12500.00,
+        "rule": "Exact Reference & Exact Amount",
+        "confidence": 1.00
+      },
+      {
+        "pair_id": 5,
+        "description": "Monthly Payroll Direct Deposit",
+        "amount": -38500.00,
+        "rule": "Exact Reference & Exact Amount",
+        "confidence": 1.00
+      }
+    ],
+    "pass_2_fuzzy_ai_high_confidence": [
+      {
+        "pair_id": 6,
+        "statement_desc": "AMAZON WEB SERVICES EMEA INVOICE",
+        "ledger_desc": "Amazon Web Services Cloud Infrastructure",
+        "amount": -2450.75,
+        "confidence": 0.89,
+        "method": "FUZZY_AI_VENDOR_VARIATION"
+      },
+      {
+        "pair_id": 7,
+        "statement_desc": "GOOGLE CLOUD PLATFORM SAAS",
+        "ledger_desc": "Google Cloud Platform US",
+        "amount": -850.00,
+        "confidence": 0.91,
+        "method": "FUZZY_AI_VENDOR_VARIATION"
+      },
+      {
+        "pair_id": 8,
+        "statement_desc": "GITHUB ENTERPRISE SEATS",
+        "ledger_desc": "GitHub Inc Software Seats",
+        "amount": -420.00,
+        "confidence": 0.90,
+        "method": "FUZZY_AI_VENDOR_VARIATION"
+      },
+      {
+        "pair_id": 9,
+        "statement_desc": "OFFICE LEASE WEWORK GLOBAL",
+        "ledger_desc": "WeWork Global Workspace Rent",
+        "amount": -9500.00,
+        "confidence": 0.88,
+        "method": "FUZZY_AI_VENDOR_VARIATION"
+      },
+      {
+        "pair_id": 10,
+        "statement_desc": "DATADOG MONITORING CLOUD",
+        "ledger_desc": "Datadog SaaS Platform",
+        "amount": -3100.00,
+        "confidence": 0.88,
+        "method": "FUZZY_AI_VENDOR_VARIATION"
+      },
+      {
+        "pair_id": 11,
+        "statement_desc": "DATADOG MONITORING APM ADDON",
+        "ledger_desc": "Datadog APM Log Ingestion Addon",
+        "amount": -3100.00,
+        "confidence": 0.89,
+        "method": "FUZZY_AI_VENDOR_VARIATION"
+      }
+    ],
+    "exceptions_and_discrepancies": [
+      {
+        "exception_id": "EXC-001",
+        "type": "FEE_DEDUCTION_VARIATION",
+        "statement_amount": 18500.00,
+        "ledger_amount": 18125.00,
+        "difference": 375.00,
+        "reason": "Gross settlement ($18,500.00) vs Net ledger entry ($18,125.00) with $375 processing fee deduction."
+      },
+      {
+        "exception_id": "EXC-002",
+        "type": "UNMATCHED_BANK_CREDIT",
+        "statement_amount": 7500.00,
+        "description": "UNKNOWN INTERNATIONAL WIRE INFLOW",
+        "reason": "Bank deposit without corresponding internal ledger booking."
+      },
+      {
+        "exception_id": "EXC-003",
+        "type": "UNMATCHED_CHARGEBACK",
+        "statement_amount": -1200.00,
+        "description": "REFUND DISPUTE CHARGEBACK STRIPE",
+        "reason": "Merchant dispute debit from bank with no recorded ledger authorization."
+      },
+      {
+        "exception_id": "EXC-004",
+        "type": "INTERNAL_TRANSFER_BREAK",
+        "ledger_amount": -5000.00,
+        "description": "Internal Treasury Operating Book Transfer",
+        "reason": "Book transfer entry absent from cleared bank statement."
+      }
+    ]
+  }
+}

@@ -1,0 +1,86 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 3 0 R >>
+endobj
+2 0 obj
+<< /Type /Outlines /Count 0 >>
+endobj
+3 0 obj
+<< /Type /Pages /Kids [4 0 R] /Count 1 >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 3 0 R /MediaBox [0 0 612 792] /Contents 5 0 R /Resources << /Font << /F1 6 0 R >> >> >>
+endobj
+5 0 obj
+<< /Length 3082 >>
+stream
+BT
+/F1 14 Tf
+50 740 Td
+(JPMORGAN CHASE BANK, N.A. - COMMERCIAL ACCOUNT STATEMENT) Tj
+/F1 9 Tf
+0 -20 Td
+(Account: ****3201 | Currency: USD | Statement Period: 2026-08-01 to 2026-08-31) Tj
+0 -15 Td
+(Company: Acme Financial Corp | Status: CLEARED SETTLEMENTS) Tj
+0 -25 Td
+/F1 8 Tf
+(--------------------------------------------------------------------------------------------------------------------------------------) Tj
+0 -12 Td
+(DATE         TRANSACTION DESCRIPTION                             REFERENCE            DEBIT (USD)    CREDIT (USD)   BALANCE (USD)) Tj
+0 -10 Td
+(--------------------------------------------------------------------------------------------------------------------------------------) Tj
+0 -14 Td
+(2026-08-01   STRIPE PAYOUT SETTLEMENT #9901                     STRIPE-SETTLE-9901                    15,450.00      15,450.00) Tj
+0 -13 Td
+(2026-08-03   Razorpay Settlement Payout                          RZP-SETTLE-4412                       28,900.50      44,350.50) Tj
+0 -13 Td
+(2026-08-05   Customer Inflow Wire Acme Corp                      WIRE-ACME-8821                        45,000.00      89,350.50) Tj
+0 -13 Td
+(2026-08-08   Slack Enterprise Grid Annual                        INV-SLACK-2026        12,500.00                      76,850.50) Tj
+0 -13 Td
+(2026-08-10   Monthly Payroll Direct Deposit                      PAYROLL-2026-08       38,500.00                      38,350.50) Tj
+0 -13 Td
+(2026-08-12   AMAZON WEB SERVICES EMEA INVOICE                    INV-AWS-88120          2,450.75                      35,899.75) Tj
+0 -13 Td
+(2026-08-15   GOOGLE CLOUD PLATFORM SAAS                          GCP-INV-4419             850.00                      35,049.75) Tj
+0 -13 Td
+(2026-08-16   GITHUB ENTERPRISE SEATS                             GH-SUB-9982              420.00                      34,629.75) Tj
+0 -13 Td
+(2026-08-20   STRIPE PAYOUT SETTLEMENT #9902                     STRIPE-SETTLE-9902                    18,500.00      53,129.75) Tj
+0 -13 Td
+(2026-08-23   DATADOG MONITORING CLOUD                            INV-DD-5512            3,100.00                      50,029.75) Tj
+0 -13 Td
+(2026-08-23   DATADOG MONITORING APM ADDON                        INV-DD-5513            3,100.00                      46,929.75) Tj
+0 -13 Td
+(2026-08-26   OFFICE LEASE WEWORK GLOBAL                          LEASE-AUG-2026         9,500.00                      37,429.75) Tj
+0 -13 Td
+(2026-08-27   UNKNOWN INTERNATIONAL WIRE INFLOW                   WIRE-UNRECOG-991                       7,500.00      44,929.75) Tj
+0 -13 Td
+(2026-08-28   REFUND DISPUTE CHARGEBACK STRIPE                    CHG-BACK-0012          1,200.00                      43,729.75) Tj
+0 -13 Td
+(2026-08-30   VENDOR PAYMENT STRATEGY CONSULTING                  INV-STRAT-0091         6,800.00                      36,929.75) Tj
+0 -15 Td
+(--------------------------------------------------------------------------------------------------------------------------------------) Tj
+0 -14 Td
+(TOTAL CREDITS: ,350.50  |  TOTAL DEBITS: ,420.75  |  CLOSING BALANCE: ,929.75) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /Name /F1 /BaseFont /Courier >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000104 00000 n 
+0000000161 00000 n 
+0000000287 00000 n 
+0000003421 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+3499
+%%EOF

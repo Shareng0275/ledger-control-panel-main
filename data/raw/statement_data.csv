@@ -1,0 +1,155 @@
+date,description,amount,currency,reference,transaction_type
+2026-06-01,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1001,credit
+2026-06-01,ADYEN Payout Settlement - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1002,credit
+2026-06-02,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1003,credit
+2026-06-02,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1004,credit
+2026-06-02,Office Lease Global HQ,-18500.00,USD,LEASE-HQ-1,debit
+2026-06-03,PAYPAL Payout Settlement - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1005,credit
+2026-06-03,STRIPE Payout Settlement - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1006,credit
+2026-06-03,Datadog Infrastructure Monitoring,-3200.00,USD,INV-DDOG-2,debit
+2026-06-04,ADYEN Payout Settlement - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1007,credit
+2026-06-04,RAZORPAY Payout Settlement - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1008,credit
+2026-06-05,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1009,credit
+2026-06-05,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1010,credit
+2026-06-05,Bi-Weekly Payroll Direct Deposit ACH,-42500.00,USD,PAYROLL-ACH-4,debit
+2026-06-08,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1011,credit
+2026-06-08,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1012,credit
+2026-06-09,WIRE Payout Settlement - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1013,credit
+2026-06-09,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1014,credit
+2026-06-10,STRIPE Payout Settlement - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1015,credit
+2026-06-10,PAYPAL Payout Settlement - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1016,credit
+2026-06-10,Google Workspace Enterprise Seats,-840.00,USD,INV-GSUITE-9,debit
+2026-06-11,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1017,credit
+2026-06-11,ADYEN Payout Settlement - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1018,credit
+2026-06-12,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1019,credit
+2026-06-12,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1020,credit
+2026-06-15,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1021,credit
+2026-06-15,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1022,credit
+2026-06-16,STRIPE Payout Settlement - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1023,credit
+2026-06-16,WIRE Payout Settlement - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1024,credit
+2026-06-17,RAZORPAY Payout Settlement - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1026,credit
+2026-06-17,STRIPE Payout Settlement - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1027,credit
+2026-06-17,AWS Cloud Infrastructure Compute,-14250.00,USD,INV-AWS-US-16,debit
+2026-06-18,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1028,credit
+2026-06-18,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1029,credit
+2026-06-19,WIRE Payout Settlement - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1030,credit
+2026-06-19,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1031,credit
+2026-06-19,Bi-Weekly Payroll Direct Deposit ACH,-42500.00,USD,PAYROLL-ACH-18,debit
+2026-06-22,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1032,credit
+2026-06-22,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1033,credit
+2026-06-23,PAYPAL Payout Settlement - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1034,credit
+2026-06-23,STRIPE Payout Settlement - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1035,credit
+2026-06-24,ADYEN Payout Settlement - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1036,credit
+2026-06-24,RAZORPAY Payout Settlement - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1037,credit
+2026-06-24,Office Lease Global HQ,-18500.00,USD,LEASE-HQ-23,debit
+2026-06-25,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1038,credit
+2026-06-25,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1039,credit
+2026-06-26,STRIPE Payout Settlement - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1040,credit
+2026-06-26,WIRE Payout Settlement - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1041,credit
+2026-06-29,WIRE Payout Settlement - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1042,credit
+2026-06-29,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1043,credit
+2026-06-30,STRIPE Payout Settlement - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1044,credit
+2026-06-30,PAYPAL Payout Settlement - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1045,credit
+2026-07-01,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1046,credit
+2026-07-01,ADYEN Payout Settlement - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1047,credit
+2026-07-01,Datadog Infrastructure Monitoring,-3200.00,USD,INV-DDOG-30,debit
+2026-07-02,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1048,credit
+2026-07-02,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1049,credit
+2026-07-02,Office Lease Global HQ,-18500.00,USD,LEASE-HQ-31,debit
+2026-07-03,PAYPAL Payout Settlement - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1050,credit
+2026-07-03,STRIPE Payout Settlement - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1051,credit
+2026-07-05,Bi-Weekly Payroll Direct Deposit ACH,-42500.00,USD,PAYROLL-ACH-34,debit
+2026-07-06,STRIPE Payout Settlement - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1052,credit
+2026-07-06,WIRE Payout Settlement - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1053,credit
+2026-07-07,RAZORPAY Payout Settlement - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1054,credit
+2026-07-07,STRIPE Payout Settlement - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1055,credit
+2026-07-08,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1056,credit
+2026-07-08,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1057,credit
+2026-07-08,Google Workspace Enterprise Seats,-840.00,USD,INV-GSUITE-37,debit
+2026-07-09,WIRE Payout Settlement - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1058,credit
+2026-07-09,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1059,credit
+2026-07-10,STRIPE Payout Settlement - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1060,credit
+2026-07-10,PAYPAL Payout Settlement - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1061,credit
+2026-07-13,PAYPAL Payout Settlement - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1062,credit
+2026-07-13,STRIPE Payout Settlement - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1063,credit
+2026-07-14,ADYEN Payout Settlement - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1065,credit
+2026-07-14,RAZORPAY Payout Settlement - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1066,credit
+2026-07-15,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1067,credit
+2026-07-15,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1068,credit
+2026-07-15,AWS Cloud Infrastructure Compute,-14250.00,USD,INV-AWS-US-44,debit
+2026-07-16,STRIPE Payout Settlement - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1069,credit
+2026-07-16,WIRE Payout Settlement - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1070,credit
+2026-07-17,RAZORPAY Payout Settlement - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1071,credit
+2026-07-17,STRIPE Payout Settlement - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1072,credit
+2026-07-19,Bi-Weekly Payroll Direct Deposit ACH,-42500.00,USD,PAYROLL-ACH-48,debit
+2026-07-20,STRIPE Payout Settlement - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1073,credit
+2026-07-20,PAYPAL Payout Settlement - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1074,credit
+2026-07-21,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1075,credit
+2026-07-21,ADYEN Payout Settlement - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1076,credit
+2026-07-22,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1077,credit
+2026-07-22,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1078,credit
+2026-07-22,Office Lease Global HQ,-18500.00,USD,LEASE-HQ-51,debit
+2026-07-23,PAYPAL Payout Settlement - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1079,credit
+2026-07-23,STRIPE Payout Settlement - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1080,credit
+2026-07-24,ADYEN Payout Settlement - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1081,credit
+2026-07-24,RAZORPAY Payout Settlement - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1082,credit
+2026-07-27,RAZORPAY Payout Settlement - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1083,credit
+2026-07-27,STRIPE Payout Settlement - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1084,credit
+2026-07-28,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1085,credit
+2026-07-28,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1086,credit
+2026-07-29,WIRE Payout Settlement - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1087,credit
+2026-07-29,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1088,credit
+2026-07-29,Datadog Infrastructure Monitoring,-3200.00,USD,INV-DDOG-58,debit
+2026-07-30,STRIPE Payout Settlement - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1089,credit
+2026-07-30,PAYPAL Payout Settlement - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1090,credit
+2026-07-31,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1091,credit
+2026-07-31,ADYEN Payout Settlement - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1092,credit
+2026-08-01,Office Lease Global HQ,-18500.00,USD,LEASE-HQ-61,debit
+2026-08-03,ADYEN Payout Settlement - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1093,credit
+2026-08-03,RAZORPAY Payout Settlement - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1094,credit
+2026-08-04,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1095,credit
+2026-08-04,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1096,credit
+2026-08-04,Bi-Weekly Payroll Direct Deposit ACH,-42500.00,USD,PAYROLL-ACH-64,debit
+2026-08-05,STRIPE Payout Settlement - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1097,credit
+2026-08-05,WIRE Payout Settlement - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1098,credit
+2026-08-05,Google Workspace Enterprise Seats,-840.00,USD,INV-GSUITE-65,debit
+2026-08-06,RAZORPAY Payout Settlement - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1099,credit
+2026-08-06,STRIPE Payout Settlement - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1100,credit
+2026-08-07,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1101,credit
+2026-08-07,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1102,credit
+2026-08-10,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1103,credit
+2026-08-10,ADYEN Payout Settlement - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1104,credit
+2026-08-11,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1105,credit
+2026-08-11,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1106,credit
+2026-08-12,PAYPAL Payout Settlement - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1107,credit
+2026-08-12,STRIPE Payout Settlement - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1108,credit
+2026-08-12,AWS Cloud Infrastructure Compute,-14250.00,USD,INV-AWS-US-72,debit
+2026-08-13,ADYEN Payout Settlement - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1109,credit
+2026-08-13,RAZORPAY Payout Settlement - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1110,credit
+2026-08-14,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1112,credit
+2026-08-14,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1113,credit
+2026-08-17,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1114,credit
+2026-08-17,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1115,credit
+2026-08-18,WIRE Payout Settlement - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1116,credit
+2026-08-18,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1117,credit
+2026-08-18,Bi-Weekly Payroll Direct Deposit ACH,-42500.00,USD,PAYROLL-ACH-78,debit
+2026-08-19,STRIPE Payout Settlement - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1118,credit
+2026-08-19,PAYPAL Payout Settlement - Apex Global Subscriptions,6602.80,USD,PAYPAL-BATCH-1119,credit
+2026-08-19,Office Lease Global HQ,-18500.00,USD,LEASE-HQ-79,debit
+2026-08-20,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1120,credit
+2026-08-20,ADYEN Payout Settlement - Quantum Retail Checkout,27718.40,USD,ADYEN-BATCH-1121,credit
+2026-08-21,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1122,credit
+2026-08-21,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1123,credit
+2026-08-24,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1124,credit
+2026-08-24,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1125,credit
+2026-08-25,STRIPE Payout Settlement - Helios Enterprise API,33111.10,USD,STRIPE-BATCH-1126,credit
+2026-08-25,WIRE Payout Settlement - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1127,credit
+2026-08-26,RAZORPAY Payout Settlement - Zenith Digital Marketplace,17745.00,USD,RAZORPAY-BATCH-1128,credit
+2026-08-26,STRIPE Payout Settlement - Strata Systems Billing,21167.80,USD,STRIPE-BATCH-1129,credit
+2026-08-26,Datadog Infrastructure Monitoring,-3200.00,USD,INV-DDOG-86,debit
+2026-08-27,ADYEN Payout Settlement - Horizon Mobile In-App,14542.40,USD,ADYEN-BATCH-1130,credit
+2026-08-27,STRIPE Payout Settlement - Acme E-Commerce SaaS,4369.50,USD,STRIPE-BATCH-1131,credit
+2026-08-28,WIRE Payout Settlement - Omni Corp Enterprise Wire,51975.00,USD,WIRE-BATCH-1132,credit
+2026-08-28,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1133,credit
+2026-08-31,STRIPE Payout Settlement - Nova Cloud Services,12137.50,USD,STRIPE-BATCH-1134,credit
+2026-08-31,SQUARE Payout Settlement - Vertex Point of Sale,8933.20,USD,SQUARE-BATCH-1135,credit

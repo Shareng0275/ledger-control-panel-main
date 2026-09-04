@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+**/node_modules/
+.venv/
+__pycache__/
+*.py[cod]
+
+# Build outputs & temporary caches
+dist/
+dist-ssr/
+.output/
+.vinxi/
+.tanstack/
+.nitro/
+.wrangler/
+.pytest_cache/
+coverage/
+
+# Large datasets & database files (> 50MB / GitHub limits)
+*.zip
+PS_20174392719_1491204439457_log.csv
+financial_datasets.db
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+**/storage/uploads/
+*.exe
+
+# Environment and sensitive keys
+.env
+*.local
+.dev.vars
+
+# Editor & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+logs/
+*.log

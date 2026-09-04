@@ -1,0 +1,60 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 3 0 R >>
+endobj
+2 0 obj
+<< /Type /Outlines /Count 0 >>
+endobj
+3 0 obj
+<< /Type /Pages /Kids [4 0 R] /Count 1 >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 3 0 R /MediaBox [0 0 612 792] /Contents 5 0 R /Resources << /Font << /F1 6 0 R >> >> >>
+endobj
+5 0 obj
+<< /Length 1185 >>
+stream
+BT
+/F1 13 Tf
+40 740 Td
+(UBS SWITZERLAND AG CORPORATE) Tj
+/F1 9 Tf
+0 -18 Td
+(Document: Swiss Franc Liquidity & Hedging | Account: CH93002302301234567890) Tj
+0 -14 Td
+(Currency: USD / Base | Entity: Acme Financial Corp | Status: VERIFIED & CLEARED) Tj
+0 -20 Td
+/F1 8 Tf
+(--------------------------------------------------------------------------------------------------------------------------------------) Tj
+0 -12 Td
+(DATE         TRANSACTION DESCRIPTION                             REFERENCE            DEBIT          CREDIT         BALANCE) Tj
+0 -10 Td
+(--------------------------------------------------------------------------------------------------------------------------------------) Tj
+0 -13 Td
+(2026-08-02   TREASURY FX HEDGE SETTLEMENT CHF    FX-HEDGE-08                            210,000.00     210,000.00) Tj
+0 -13 Td
+(2026-08-24   ZURICH CUSTODY MANAGEMENT FEES      UBS-FEE-0826              3,500.00                    206,500.00) Tj
+0 -18 Td
+(--------------------------------------------------------------------------------------------------------------------------------------) Tj
+0 -14 Td
+(RECONCILIATION STATUS: READY FOR INGESTION & FUZZY MATCHING PIPELINE) Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /Name /F1 /BaseFont /Courier >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000104 00000 n 
+0000000161 00000 n 
+0000000287 00000 n 
+0000001524 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+1602
+%%EOF
